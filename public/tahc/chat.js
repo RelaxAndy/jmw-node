@@ -3,13 +3,13 @@ import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, se
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB6-0VPDW3W5TigkzxBYMgZV_3iqw8GGkM",
-  authDomain: "chattingbackendsincenodebreaks.firebaseapp.com",
-  projectId: "chattingbackendsincenodebreaks",
-  storageBucket: "chattingbackendsincenodebreaks.firebasestorage.app",
-  messagingSenderId: "628300382438",
-  appId: "1:628300382438:web:c5a701929b899f45267b27",
-  measurementId: "G-YV919TVGCY"
+  apiKey: "AIzaSyBV3igPU9er9fn0jvDhdteQumxzyapL9_s",
+  authDomain: "chatweb-bb1bb.firebaseapp.com",
+  projectId: "chatweb-bb1bb",
+  storageBucket: "chatweb-bb1bb.firebasestorage.app",
+  messagingSenderId: "1036999205304",
+  appId: "1:1036999205304:web:14749dcedfc7f3be6def4d",
+  measurementId: "G-6P29H725HG"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -18,8 +18,8 @@ const auth = getAuth();
 
 let me = {
   uid: null,
-  name: localStorage.getItem("username") || "",
-  tag: localStorage.getItem("usertag") || "",
+  name: sessionStorage.getItem("username") || "",
+  tag: sessionStorage.getItem("usertag") || "",
   avatar: "?"
 };
 
@@ -522,8 +522,8 @@ function showUsernameModal(title) {
     me.name = val;
     me.tag = randomTag();
     me.avatar = avatarLetter(val);
-    localStorage.setItem("username", me.name);
-    localStorage.setItem("usertag", me.tag);
+    sessionStorage.setItem("username", me.name);
+    sessionStorage.setItem("usertag", me.tag);
     await upsertUserProfile();
     closeModal();
     startListeners();
@@ -536,76 +536,93 @@ changeNameBtn.onclick = () => showUsernameModal("Change Username");
 
 async function upsertUserProfile() {
   if (!me.uid) return;
-  const ref = doc(db, "users", me.uid);
-
-  await setDoc(ref, {
-    uid: me.uid,
-    name: sanitizeInput(me.name, 20),
-    tag: sanitizeInput(me.tag, 10),
-    avatar: avatarLetter(me.name),
-    status: "online",
-    lastSeen: serverTimestamp()
-  }, { merge: true });
+  try {
+    const ref = doc(db, "users", me.uid);
+    await setDoc(ref, {
+      uid: me.uid,
+      name: sanitizeInput(me.name, 20),
+      tag: sanitizeInput(me.tag, 10),
+      avatar: avatarLetter(me.name),
+      status: "online",
+      lastSeen: serverTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.error("Profile update error:", error);
+  }
 
   window.addEventListener("beforeunload", async () => {
     try {
+      const ref = doc(db, "users", me.uid);
       await updateDoc(ref, {
         status: "offline",
         lastSeen: serverTimestamp()
       });
     } catch (e) {
-      console.error("Error updating status on unload:", e);
+      console.error("Status update error:", e);
     }
   });
 }
 
 function startListeners() {
+  // Wait for authentication to be ready
+  if (!me.uid) {
+    setTimeout(() => startListeners(), 100);
+    return;
+  }
+
   if (unsubUsers) unsubUsers();
-  unsubUsers = onSnapshot(query(collection(db, "users"), orderBy("name")), (snap) => {
-    usersList.innerHTML = "";
-    snap.forEach(d => {
-      const u = d.data();
-      if (!u.name) return;
+  unsubUsers = onSnapshot(
+    query(collection(db, "users"), orderBy("name")), 
+    (snap) => {
+      usersList.innerHTML = "";
+      snap.forEach(d => {
+        const u = d.data();
+        if (!u.name) return;
 
-      const userData = {
-        uid: u.uid,
-        name: sanitizeInput(u.name, 20),
-        tag: sanitizeInput(u.tag, 10),
-        status: sanitizeInput(u.status || "offline", 20)
-      };
+        const userData = {
+          uid: u.uid,
+          name: sanitizeInput(u.name, 20),
+          tag: sanitizeInput(u.tag, 10),
+          status: sanitizeInput(u.status || "offline", 20)
+        };
 
-      if (userData.uid === me.uid) {
-        userData.name = me.name;
-        userData.tag = me.tag;
-      }
-
-      const row = document.createElement("div");
-      row.className = "user-row";
-      safeSetAttribute(row, 'data-uid', userData.uid);
-
-      const avatar = createTextElement('div', avatarLetter(userData.name), 'avatar');
-
-      const userInfo = document.createElement('div');
-      const userName = createTextElement('div', 
-        `${safeUsername(userData.name, userData.tag)}${userData.uid === me.uid ? " (you)" : ""}`, 
-        'user-name'
-      );
-      const userMeta = createTextElement('div', userData.status, 'user-meta');
-
-      userInfo.appendChild(userName);
-      userInfo.appendChild(userMeta);
-      row.appendChild(avatar);
-      row.appendChild(userInfo);
-
-      row.onclick = () => {
-        if (userData.uid !== me.uid) {
-          createOrOpenDM(userData.uid, userData.name, userData.tag);
-          usersPanel.classList.remove("open");
+        if (userData.uid === me.uid) {
+          userData.name = me.name;
+          userData.tag = me.tag;
         }
-      };
-      usersList.appendChild(row);
-    });
-  });
+
+        const row = document.createElement("div");
+        row.className = "user-row";
+        safeSetAttribute(row, 'data-uid', userData.uid);
+
+        const avatar = createTextElement('div', avatarLetter(userData.name), 'avatar');
+
+        const userInfo = document.createElement('div');
+        const userName = createTextElement('div', 
+          `${safeUsername(userData.name, userData.tag)}${userData.uid === me.uid ? " (you)" : ""}`, 
+          'user-name'
+        );
+        const userMeta = createTextElement('div', userData.status, 'user-meta');
+
+        userInfo.appendChild(userName);
+        userInfo.appendChild(userMeta);
+        row.appendChild(avatar);
+        row.appendChild(userInfo);
+
+        row.onclick = () => {
+          if (userData.uid !== me.uid) {
+            createOrOpenDM(userData.uid, userData.name, userData.tag);
+            usersPanel.classList.remove("open");
+          }
+        };
+        usersList.appendChild(row);
+      });
+    },
+    (error) => {
+      console.error("Users listener error:", error);
+      showStatusMessage("Failed to load users", "error");
+    }
+  );
 
   if (unsubMyRooms) unsubMyRooms();
 
@@ -680,39 +697,51 @@ function startListeners() {
   };
 
   const dmQuery = query(collection(db, "dms"), where("memberUids", "array-contains", me.uid));
-  const dmUnsub = onSnapshot(dmQuery, (snap) => {
-    renderRooms.dms = snap.docs.map(d => {
-      const r = d.data();
-      const otherUid = (r.memberUids || []).find(x => x !== me.uid);
-      const otherName = sanitizeInput(r.memberNames?.[otherUid] || "Unknown", 20);
-      const otherTag = sanitizeInput(r.memberTags?.[otherUid] || "0000", 10);
+  const dmUnsub = onSnapshot(
+    dmQuery, 
+    (snap) => {
+      renderRooms.dms = snap.docs.map(d => {
+        const r = d.data();
+        const otherUid = (r.memberUids || []).find(x => x !== me.uid);
+        const otherName = sanitizeInput(r.memberNames?.[otherUid] || "Unknown", 20);
+        const otherTag = sanitizeInput(r.memberTags?.[otherUid] || "0000", 10);
 
-      return {
-        kind: "dm",
-        id: d.id,
-        key: d.id,
-        label: `DM: ${safeUsername(otherName, otherTag)}`,
-        updatedAt: r.updatedAt
-      };
-    });
-    drawRooms();
-  });
+        return {
+          kind: "dm",
+          id: d.id,
+          key: d.id,
+          label: `DM: ${safeUsername(otherName, otherTag)}`,
+          updatedAt: r.updatedAt
+        };
+      });
+      drawRooms();
+    },
+    (error) => {
+      console.error("DM listener error:", error);
+    }
+  );
 
   const groupQuery = query(collection(db, "groups"), where("memberUids", "array-contains", me.uid));
-  const groupUnsub = onSnapshot(groupQuery, (snap) => {
-    renderRooms.groups = snap.docs.map(d => {
-      const r = d.data();
-      const safeName = sanitizeInput(r.name || "Unnamed", 50);
-      return {
-        kind: "group",
-        id: d.id,
-        key: d.id,
-        label: `Group: ${safeName}`,
-        updatedAt: r.updatedAt
-      };
-    });
-    drawRooms();
-  });
+  const groupUnsub = onSnapshot(
+    groupQuery, 
+    (snap) => {
+      renderRooms.groups = snap.docs.map(d => {
+        const r = d.data();
+        const safeName = sanitizeInput(r.name || "Unnamed", 50);
+        return {
+          kind: "group",
+          id: d.id,
+          key: d.id,
+          label: `Group: ${safeName}`,
+          updatedAt: r.updatedAt
+        };
+      });
+      drawRooms();
+    },
+    (error) => {
+      console.error("Group listener error:", error);
+    }
+  );
 
   unsubMyRooms = () => {
     dmUnsub();
@@ -741,16 +770,23 @@ function openRoom(kind, id, title) {
   const [c1, c2, c3] = roomPathForCurrent();
   const messageQuery = query(collection(db, c1, c2, c3), orderBy("timestamp"));
 
-  unsubMsgs = onSnapshot(messageQuery, (snap) => {
-    snap.docChanges().forEach(change => {
-      if (change.type === "added") {
-        const m = change.doc.data();
-        messagesEl.appendChild(renderMessage(m));
-        showMessageNotification(m, current.type);
-      }
-    });
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  });
+  unsubMsgs = onSnapshot(
+    messageQuery, 
+    (snap) => {
+      snap.docChanges().forEach(change => {
+        if (change.type === "added") {
+          const m = change.doc.data();
+          messagesEl.appendChild(renderMessage(m));
+          showMessageNotification(m, current.type);
+        }
+      });
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    },
+    (error) => {
+      console.error("Messages listener error:", error);
+      showStatusMessage("Failed to load messages", "error");
+    }
+  );
 
   setActiveRoomButton(safeId);
 }
@@ -765,29 +801,33 @@ async function sendMessage() {
 
   try {
     const [c1, c2, c3] = roomPathForCurrent();
-    await addDoc(collection(db, c1, c2, c3), {
+    
+    const messageData = {
       uid: me.uid,
-      name: sanitizeInput(me.name, 20), 
-      tag: sanitizeInput(me.tag, 10),   
-      text: text, 
+      name: sanitizeInput(me.name, 20),
+      tag: sanitizeInput(me.tag, 10),
+      text: text,
       timestamp: serverTimestamp()
-    });
+    };
 
+    await addDoc(collection(db, c1, c2, c3), messageData);
+
+    // Use setDoc with merge: true to create document if it doesn't exist
     if (current.type === "dm") {
-      await updateDoc(doc(db, "dms", current.id), {
+      await setDoc(doc(db, "dms", current.id), {
         updatedAt: serverTimestamp()
-      });
+      }, { merge: true }).catch(console.error);
     } else if (current.type === "group") {
-      await updateDoc(doc(db, "groups", current.id), {
+      await setDoc(doc(db, "groups", current.id), {
         updatedAt: serverTimestamp()
-      });
+      }, { merge: true }).catch(console.error);
     }
 
     messageInput.value = "";
     if (window.updateCharCount) window.updateCharCount();
   } catch (error) {
-    console.error("Error sending message:", error);
-    showStatusMessage("Failed to send message. Please try again.", 'error');
+    console.error("Send error:", error);
+    showStatusMessage("Failed to send message. Try again.", "error");
   }
 }
 
@@ -859,7 +899,7 @@ startDmBtn.onclick = async () => {
       closeModal();
     });
   } catch (error) {
-    console.error("Error loading users for DM:", error);
+    console.error("DM load error:", error);
   }
 };
 
@@ -892,7 +932,7 @@ async function createOrOpenDM(otherUid, otherName, otherTag) {
 
     openRoom("dm", dmId, `DM: ${safeUsername(safeOtherName, safeOtherTag)}`);
   } catch (error) {
-    console.error("Error creating/opening DM:", error);
+    console.error("DM create error:", error);
   }
 }
 
@@ -963,7 +1003,7 @@ createGroupBtn.onclick = async () => {
 
       await setDoc(doc(db, "groups", groupId), {
         id: groupId,
-        name: name, 
+        name: name,
         kind: "group",
         memberUids: members,
         updatedAt: serverTimestamp()
@@ -973,7 +1013,7 @@ createGroupBtn.onclick = async () => {
       openRoom("group", groupId, `Group: ${name}`);
     });
   } catch (error) {
-    console.error("Error creating group:", error);
+    console.error("Group create error:", error);
   }
 };
 
@@ -991,7 +1031,7 @@ renameGroupBtn.onclick = async () => {
       input.id = 'newGroupName';
       input.className = 'input';
       input.placeholder = 'New group name';
-      input.value = currentName; 
+      input.value = currentName;
       input.maxLength = 20;
 
       const hint = createTextElement('div', 'Maximum 20 characters');
@@ -1010,15 +1050,15 @@ renameGroupBtn.onclick = async () => {
       });
 
       current.title = `Group: ${newName}`;
-      chatTitle.textContent = current.title; 
+      chatTitle.textContent = current.title;
 
       const btn = document.getElementById(`roombtn_${current.id}`);
-      if (btn) btn.textContent = newName; 
+      if (btn) btn.textContent = newName;
 
       closeModal();
     });
   } catch (error) {
-    console.error("Error renaming group:", error);
+    console.error("Rename error:", error);
   }
 };
 
