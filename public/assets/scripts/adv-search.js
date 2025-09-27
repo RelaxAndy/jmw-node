@@ -1,12 +1,12 @@
 let currentMode = "all";
 
-const htmlString = `                                <a class='link button' href='https://dsc.gg/gnetwork' target="_blank"><img height="175"
+const htmlString = `                                <a class='link button' href='https://dsc.gg/gnetwork' ><img height="175"
                                                 src="/assets/images/app/dsc.jpg"
                                                 onerror="this.src='/assets/img/no-icon-found.png'" class="image"
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="">[Gᾰme Suggestions] .gg/SJA6Hx8gep</span></a>
-                                <a class='link button' href='https://dsc.gg/gnetwork' target="_blank"><img
+                                <a class='link button' href='https://dsc.gg/gnetwork' ><img
                                                 height="175" src="/assets/images/app/dsc.jpg"
                                                 onerror="this.src='/assets/img/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -35,19 +35,19 @@ const htmlString = `                                <a class='link button' href=
                                                 class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="2048">8 Ball Classic</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/gameazzetz/assets/refs/heads/main/1v1lolold.html'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://raw.githack.com/gameazzetz/assets/refs/heads/main/1v1lolold.html'><img
                                                 height="175" src="/assets/images/game/1v1lolold.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1v1.lol">1v1.lol Oldest Version</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://learn-with.jskjsv6.workers.dev/1v1-lol-online/1v1-lol-online.github.io/main/file/index.html'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://learn-with.jskjsv6.workers.dev/1v1-lol-online/1v1-lol-online.github.io/main/file/index.html'><img
                                                 height="175" src="/assets/images/game/1v1-lol.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1v1.lol">1v1.lol Older Version</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://1v1.lol'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://1v1.lol'><img
                                                 height="175" src="/assets/images/game/1v1lol.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -138,7 +138,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="awesome">Awesome Tanks</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://than1089.github.io/adventure-capitalist'><img height="175"
+                                <a class='link button'  href='/active/index.html?autofill=https://than1089.github.io/adventure-capitalist'><img height="175"
                                                 src="/assets/images/game/adventure.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -237,7 +237,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Ace Attorney</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/andys-apple-farm/index.html'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/andys-apple-farm/index.html'><img
                                                 height="175" src="/assets/images/game/aaf.webp"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -267,7 +267,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="bad piggies">Bad Piggies</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://jcw87.github.io/c2-sans-fight/'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://jcw87.github.io/c2-sans-fight/'><img
                                                 height="175" src="/assets/images/game/bad-time-sim.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -526,7 +526,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">Block Blast</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/baldi-plus/index.html' data-tag="exclusive"><img
+                                <a class='link button'  href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/baldi-plus/index.html' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/bp.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -826,7 +826,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Drive Mad</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://deltarune.fun' data-tag="exclusive"><img
+                                <a class='link button'  href='/active/index.html?autofill=https://deltarune.fun' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/deltarune.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1255,7 +1255,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">Gift Wrapped</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://bit.ly/46qBHCy'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://bit.ly/46qBHCy'><img
                                                 height="175" src="/assets/images/app/gfn.png"
                                                 onerror="this.src='/assets/img/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -1454,7 +1454,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">Kindergarten 2</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://html-classic.itch.zone/html/14903292/Kindergarten3Port/index.html' data-tag="exclusive"><img
+                                <a class='link button'  href='/active/index.html?autofill=https://html-classic.itch.zone/html/14903292/Kindergarten3Port/index.html' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/kdg.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1539,7 +1539,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="mcc">Minecraft Classic</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://mcon.vercel.app' data-tag="exclusive"><img
+                                <a class='link button'  href='/active/index.html?autofill=https://mcon.vercel.app' data-tag="exclusive"><img
                                                 height="175" src="/yalp/src/eaglercraft/X/game/game.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1816,7 +1816,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="pf3">Parking Fury 3</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/MkGamesdev/MKGBA2.0/master/launcher.html#pokemonemerald'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://raw.githack.com/MkGamesdev/MKGBA2.0/master/launcher.html#pokemonemerald'><img
                                                 height="175" src="/assets/images/game/pokemon-emerald.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1834,7 +1834,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="pe">Pokemon LeafGreen</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://cooleoooo662.github.io/GBA-Emulator-Unblocked/launcher.html#pokemonred'><img
+                                <a class='link button'  href='/active/index.html?autofill=https://cooleoooo662.github.io/GBA-Emulator-Unblocked/launcher.html#pokemonred'><img
                                                 height="175" src="/assets/images/game/pokemon-firered.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1907,7 +1907,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Roblox</span></a>
-                                <a class='link button' href='/active/index.html?autofill=voluble-fairy-ba4138.netlify.app/roblox/'
+                                <a class='link button'  href='/active/index.html?autofill=voluble-fairy-ba4138.netlify.app/roblox/'
                                         data-tag="exclusive"><img height="175" src="/assets/images/game/rblx.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2412,7 +2412,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="tiq book">TIQ Book</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=tiq-xmas&type=local'><img height="175"
+                                <a class='link button'  href='/active/index.html?autofill=https://f.kbhgames.com/RS/game.php?r=//f.kbhgames.com/2017/12/impossible-xmas.swf&w=1024&h=576&warnsupport=true'><img height="175"
                                                 src="/assets/images/game/tiqxmas.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2538,7 +2538,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">ULTRAKILL</span></a>
-                                <a class='link button' href='/active/index.html?autofill=ut.deltarune.win'
+                                <a class='link button'  href='/active/index.html?autofill=ut.deltarune.win'
                                         data-tag="exclusive"><img height="175" src="/assets/images/game/undertale.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"

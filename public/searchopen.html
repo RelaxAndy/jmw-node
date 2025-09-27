@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--scrapped-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search has been open</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bgcolor);
+            color: var(--txtcolor);
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(30, 30, 46, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--txtcolor);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.1);
+        }
+
+        select option {
+            background: var(--bg-color);
+            color: var(--txtcolor);
+            padding: 8px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body theme="classic">
+    <div>
+        <h1>Search Options</h1>
+        <select
+            onchange="if(this.value){if(this.selectedIndex===2){window.open(this.value,'_blank')}else{window.location.href=this.value}}">
+            <option value="" selected>Select an option</option>
+            <option value="/active/">Stealthy Mode</option>
+            <option value="/active/">Regular Mode [less chance of errors]</option>
+        </select>
+
+    </div>
+</body>
+<script src="/assets/scripts/index.js"></script>
+
+</html>
