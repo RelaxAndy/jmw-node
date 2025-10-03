@@ -14,6 +14,15 @@
   <meta
     content="Jordan's Mᾰth Work is the ultimate spot where numbers meet creativity, making even the toughest equations feel like a breeze. From algebraic adventures to geometric genius, this site turns everyday mᾰth into something seriously epic."
     property="og:description" />
+    <script>
+          let count = parseInt(localStorage.getItem('alertCount')) || 0;
+
+    if (count < 4) {
+      alert(
+        "This will only appear 4 times. As a reminder, the ads are NOT viruses, please click the X button in the corner if you encounter them. If you accidentally click on them, just close the tab. Thank you!")
+      localStorage.setItem('alertCount', count + 1);
+    }
+    </script>
 
   <style>
     @import url("/assets/css/themes.css");

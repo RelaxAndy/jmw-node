@@ -243,6 +243,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">Andy's Apple Farm</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/amanda-the-adventurer/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/ata.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Amanda The Adventurer</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/bendy/index.html&alert=true'><img height="175"
                                                 src="/assets/images/game/batim.avif"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -394,7 +400,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="brawl stars">Burrito Bison Revenge</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=buckshit&type=local'><img height="175"
+                                <a class='link button' href='/yalp/ela.html?book=buckshot-roulette&type=local' data-tag="exclusive"><img height="175"
                                                 src="/assets/images/game/buckshot.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -538,6 +544,18 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">Bouncemasters</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/bloodmoney/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/bloodmoney.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Bloodmoney</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/bubbls/youtube-playables/refs/heads/main/bowmasters/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/bms.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Bowmasters</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://crazy-cattle3d.org/game/crazycattle3d/&alert=true'><img
                                                 height="175" src="/assets/images/game/cc3d.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -832,12 +850,30 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Drive Mad</span></a>
-                                <a class='link button'  href='/active/index.html?autofill=https://deltarune.fun&alert=true' data-tag="exclusive"><img
+                                <a class='link button'  href='/active/index.html?autofill=https://ajhmath.org/books/DELTARUNE/&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/deltarune.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;width: fit-content;"
                                                 alt="au">Deltarune</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/dokidoki/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/ddlc.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Doki Doki Literature Club</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/dead-plate/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/deadplate.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Dead Plate</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/deadseat/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/deadseat.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Deadseat</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://rbeesley.github.io/MicrosoftEdge-SURF/&alert=true'><img height="175"
                                                 src="/assets/images/game/edge.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -1128,6 +1164,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">Football Bros</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/fears-to-fathom/home-alone/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/ftfha.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;width: fit-content;"
+                                                alt="roblox">Fears to fathom; Home Alone</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=gba&type=local'><img height="175"
                                                 src="/assets/images/game/gba.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -1363,6 +1405,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="GBA.JS">Hollow Knight</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/human-expenditure-program/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/hee.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;width: fit-content;"
+                                                alt="roblox">Human Expenditure Program</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=iceagebaby&type=3kh0'><img height="175"
                                                 src="/assets/images/game/iceage.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -1919,6 +1967,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="GBA.JS">People Playground</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/pizza-tower/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/pizzatower.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Pizza Tower</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://g.vseigru.net/7/igra-kvantovaya-geometriya-dash/&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/qg.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2357,12 +2411,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">Santa Delivery</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=speed-stars&type=local'><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/speed-stars/index.html' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/speedstars.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
-                                                alt="1o1 basketball">Speed Stars</span></a>
+                                                alt="1o1 basketball">Speed Stars [Steam Version]</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=superfighters&type=local'><img
                                                 height="175" src="/assets/images/game/superfighters.webp"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2381,6 +2435,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">Space Waves</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/slender/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/slender.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Slender; The Eight Pages</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=tag&type=local'><img height="175"
                                                 src="/assets/images/game/tag.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2562,13 +2622,19 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">The Last Spartan</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/the-man-in-the-window/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/tmftw.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;width: fit-content;"
+                                                alt="roblox">The Man From The Window</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/ultrakill/index.html&alert=true' data-tag="exclusive"><img height="175"
                                                 src="/assets/images/game/ultrakill.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">ULTRAKILL</span></a>
-                                <a class='link button'  href='/active/index.html?autofill=ut.deltarune.win&alert=true'
+                                <a class='link button'  href='/active/index.html?autofill=https://ajhmath.org/books/UNDERTALE/&alert=true'
                                         data-tag="exclusive"><img height="175" src="/assets/images/game/undertale.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2580,6 +2646,12 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="UE">Undertale Enchanted</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/undertale-yellow/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/undertaleyellow.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span class="span"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="UE">Undertale Yellow</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=unfair-mario&type=local'><img
                                                 height="175" src="/assets/images/game/unfair.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2737,12 +2809,18 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;"
                                                 alt="xx142b2exe">xx142-b2exe</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=yohoho&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://yohoho.io&alert=true'><img height="175"
                                                 src="/assets/images/game/yohoho.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;"
                                                 alt="yhh.io">YoHoHo.IO</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/yume-nukki/index.html&alert=true' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/yk.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
+                                                alt="roblox">Yume Nukki</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=yoshifabrication&type=3kh0'><img
                                                 height="175" src="/assets/images/game/yfs.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"

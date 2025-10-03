@@ -154,19 +154,27 @@ function safeUsername(name, tag) {
 
 function formatTimestamp(timestamp) {
   if (!timestamp) return "";
+
   const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
+
   const messageDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
   const timeStr = date.toLocaleTimeString([], {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    hour12: true
   });
-  if (messageDate.getTime() === today.getTime()) return timeStr;
-  else if (messageDate.getTime() === yesterday.getTime()) return `Yesterday, ${timeStr}`;
-  else {
+
+  if (messageDate.getTime() === today.getTime()) {
+    return timeStr;
+  } else if (messageDate.getTime() === yesterday.getTime()) {
+    return `Yesterday, ${timeStr}`;
+  } else {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear().toString().slice(-2);
