@@ -856,19 +856,19 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;width: fit-content;"
                                                 alt="au">Deltarune</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/dokidoki/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/dokidoki/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/ddlc.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Doki Doki Literature Club</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/dead-plate/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/dead-plate/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/deadplate.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="roblox">Dead Plate</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/deadseat/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/deadseat/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/deadseat.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -2411,7 +2411,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="1o1 basketball">Santa Delivery</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/speed-stars/index.html' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/speed-stars/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/speedstars.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2435,7 +2435,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">Space Waves</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/slender/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/slender/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/slender.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -2622,7 +2622,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap"
                                                 alt="gs">The Last Spartan</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/the-man-in-the-window/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/the-man-in-the-window/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/tmftw.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -2815,7 +2815,7 @@ const htmlString = `                                <a class='link button' href=
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:25px;line-height:25px;overflow:hidden;text-align:center;white-space:nowrap;"
                                                 alt="yhh.io">YoHoHo.IO</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/d0cbe7c43047eb95d3c1455877387d540128e98e/yume-nukki/index.html&alert=true' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/google-class/refs/heads/main/yume-nukki/index.html&alert=true' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/yk.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
