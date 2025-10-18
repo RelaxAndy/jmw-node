@@ -14,7 +14,8 @@ import {
   doc,
   setDoc,
   getDocs,
-  updateDoc
+  updateDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 import {
   getAuth,
@@ -447,13 +448,53 @@ function setActiveRoomButton(id) {
   }
   if (id === "public") publicBtn.classList.add("active");
 }
+async function loadUserProfile() {
+  if (!me.uid) return false;
+  
+  try {
+    const userDoc = await getDoc(doc(db, "users", me.uid));
+    
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      
+      // Load saved username and tag
+      me.name = userData.name;
+      me.tag = userData.tag;
+      me.avatar = avatarLetter(me.name);
+      
+      // Save to sessionStorage for this session
+      sessionStorage.setItem("username", me.name);
+      sessionStorage.setItem("usertag", me.tag);
+      
+      console.log("Loaded existing profile:", me.name, me.tag);
+      return true;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error("Error loading user profile:", error);
+    return false;
+  }
+}
+
+// Replace the existing onAuthStateChanged with this improved version
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
+  
   me.uid = user.uid;
+  
+  // Check admin status first
   await checkAdminStatus();
   adminCheckComplete = true;
-  if (!me.name) showUsernameModal("Set Username");
-  else {
+  
+  // Try to load existing profile from Firebase
+  const profileLoaded = await loadUserProfile();
+  
+  // Only show username modal if no profile exists
+  if (!profileLoaded && !me.name) {
+    showUsernameModal("Set Username");
+  } else {
+    // Profile exists, continue normally
     me.avatar = avatarLetter(me.name);
     await upsertUserProfile();
     updateAdminUI();
@@ -673,7 +714,7 @@ function showLoadingScreen() {
   messagesEl.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;">
       <div style="width:50px;height:50px;border:4px solid var(--surface-hover);border-top:4px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite;"></div>
-      <div style="color:var(--text-muted);font-size:0.9rem;">Loading messages...</div>
+      <div style="color:var(--text-muted);font-size:0.9rem;">Loading messages [this may take a while]...</div>
     </div>
   `;
 }
@@ -750,7 +791,9 @@ function openRoom(kind, id, title) {
   });
   
   setActiveRoomButton(safeId);
-} async function sendMessage() {
+}
+
+async function sendMessage() {
   const text = sanitizeInput(messageInput.value, 119);
   if (!text || !me.uid || !me.name) return;
 

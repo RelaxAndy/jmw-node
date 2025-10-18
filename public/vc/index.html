@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Chat System</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bgcolor: #36393f;
+            --primary: #5865f2;
+            --secondary: #ed4245;
+            --txtcolor: #dcddde;
+            --surface: #2f3136;
+            --surface-hover: #3a3d44;
+            --border: #202225;
+            --glow: rgba(88, 101, 242, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bgcolor);
+            color: var(--txtcolor);
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #96989d;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .section-header i {
+            font-size: 14px;
+        }
+
+        .section-header span {
+            flex: 1;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            color: var(--txtcolor);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .icon-btn:hover {
+            background: var(--surface-hover);
+            color: var(--txtcolor);
+        }
+
+        .icon-btn i {
+            font-size: 16px;
+        }
+
+        .room-item {
+            padding: 8px 12px;
+            margin: 1px 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .room-item:hover {
+            background: var(--surface-hover);
+        }
+
+        .room-item.active {
+            background: var(--surface-hover);
+            color: #fff;
+        }
+
+        .room-item i {
+            font-size: 18px;
+            color: #8e9297;
+        }
+
+        .room-item.active i {
+            color: #fff;
+        }
+
+        .room-item span:first-of-type {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .user-count {
+            font-size: 11px;
+            padding: 2px 6px;
+            background: var(--bgcolor);
+            border-radius: 8px;
+            min-width: 20px;
+            text-align: center;
+            color: #b9bbbe;
+        }
+
+        .room-item.private::after {
+            content: '\ea75';
+            font-family: 'boxicons';
+            font-size: 14px;
+            color: #8e9297;
+        }
+
+        .no-stages {
+            padding: 16px;
+            text-align: center;
+            font-size: 13px;
+            color: #72767d;
+        }
+
+        .user-panel {
+            margin-top: auto;
+            padding: 10px;
+            background: #292b2f;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .avatar.speaking {
+            box-shadow: 0 0 0 2px #23a559, 0 0 0 4px rgba(35, 165, 89, 0.3);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .user-details span:first-child {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .status {
+            font-size: 12px;
+            color: #b9bbbe;
+        }
+
+        .user-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .user-controls .icon-btn {
+            padding: 6px;
+            border-radius: 4px;
+        }
+
+        .user-controls .icon-btn:hover {
+            background: #3c3e44;
+        }
+
+        .user-controls .icon-btn.muted {
+            color: var(--secondary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bgcolor);
+        }
+
+        .content-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 48px;
+        }
+
+        .room-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .room-title i {
+            font-size: 20px;
+            color: #8e9297;
+        }
+
+        .room-title h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .leave-btn {
+            padding: 6px 12px;
+            background: var(--secondary);
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .leave-btn:hover {
+            background: #c03537;
+        }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .default-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 12px;
+            color: #72767d;
+        }
+
+        .default-view i {
+            font-size: 48px;
+        }
+
+        .default-view h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .default-view p {
+            font-size: 14px;
+        }
+
+        .voice-room-view {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .participants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            flex: 1;
+        }
+
+        .participant-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.15s;
+        }
+
+        .participant-card:hover {
+            border-color: #3a3d44;
+        }
+
+        .participant-card .avatar {
+            width: 80px;
+            height: 80px;
+            font-size: 32px;
+        }
+
+        .participant-card.speaking .avatar {
+            box-shadow: 0 0 0 2px #23a559, 0 0 0 4px rgba(35, 165, 89, 0.3);
+        }
+
+        .participant-name {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            word-break: break-word;
+            color: #fff;
+        }
+
+        .participant-status {
+            display: flex;
+            gap: 8px;
+        }
+
+        .participant-status i {
+            font-size: 16px;
+            color: #b9bbbe;
+        }
+
+        .participant-status i.muted {
+            color: var(--secondary);
+        }
+
+        .soundboard {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .soundboard-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .soundboard-header i {
+            color: var(--primary);
+        }
+
+        .soundboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .sound-btn {
+            padding: 10px 12px;
+            background: #40444b;
+            border: none;
+            border-radius: 4px;
+            color: var(--txtcolor);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+
+        .sound-btn:hover {
+            background: #4a4e57;
+        }
+
+        .sound-btn:active {
+            background: #3a3d44;
+        }
+
+        .stage-view {
+            height: 100%;
+        }
+
+        .stage-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .stage-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            flex: 1;
+        }
+
+        .stage-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .stage-section h3 i {
+            color: var(--primary);
+        }
+
+        .stage-speakers,
+        .stage-audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: 5px;
+            padding: 24px;
+            width: 440px;
+            max-width: 90%;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            margin:10px;
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: #b9bbbe;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+
+        .close-modal:hover {
+            background: #40444b;
+            color: #dcddde;
+        }
+
+        .close-modal i {
+            font-size: 20px;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            color: #b9bbbe;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #b9bbbe;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            background: #202225;
+            border: 1px solid #202225;
+            border-radius: 3px;
+            color: var(--txtcolor);
+            font-size: 14px;
+            transition: all 0.15s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--primary);
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        button:hover {
+            background: #4752c4;
+        }
+
+        button:active {
+            background: #3c45a5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #202225;
+            border: 4px solid var(--surface);
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a1c1e;
+        }
+    </style>
+</head>
+<body theme="classic">
+    <div id="username-modal" class="modal">
+        <div class="modal-content">
+            <div align="center">
+            <h3>put a username</h3>
+            </div>
+            <input type="text" id="username-input" maxlength="14" placeholder="Dame un grr? ">
+            <br>
+            <br>
+            <button id="set-username">Join</button>
+        </div>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="create-room-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Voice Room</h2>
+                <button class="close-modal" id="close-create"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="form-group">
+                <label>Room Name</label>
+                <input type="text" id="room-name" maxlength="30" placeholder="Enter room name...">
+            </div>
+            <div class="form-group">
+                <label>Room Type</label>
+                <select id="room-type">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
+            <div class="form-group" id="password-group" style="display: none;">
+                <label>Password</label>
+                <input type="password" id="room-password" placeholder="Enter password...">
+            </div>
+            <button id="create-room">Create Room</button>
+        </div>
+    </div>
+
+    <!-- Join Private Room Modal -->
+    <div id="join-private-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join Private Room</h2>
+                <button class="close-modal" id="close-join"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="form-group">
+                <label id="private-room-label">Enter Password</label>
+                <input type="password" id="private-password" placeholder="Password...">
+            </div>
+            <button id="join-private">Join</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="admin-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Admin Panel</h2>
+                <button class="close-modal" id="close-admin"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="form-group">
+                <label>Stage Name</label>
+                <input type="text" id="stage-name" maxlength="30" placeholder="Enter stage name...">
+            </div>
+            <button id="create-stage">Create Stage</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bxs-microphone'></i>
+                <h1>Voice Chat</h1>
+            </div>
+
+            <!-- General Voice Rooms -->
+            <div class="section">
+                <div class="section-header">
+                    <i class='bx bx-volume-full'></i>
+                    <span>General Voice Chat</span>
+                </div>
+                <div class="room-item" data-room="general-1" data-type="general">
+                    <i class='bx bx-hash'></i>
+                    <span>General Room 1</span>
+                    <span class="user-count">0</span>
+                </div>
+                <div class="room-item" data-room="general-2" data-type="general">
+                    <i class='bx bx-hash'></i>
+                    <span>General Room 2</span>
+                    <span class="user-count">0</span>
+                </div>
+                <div class="room-item" data-room="general-3" data-type="general">
+                    <i class='bx bx-hash'></i>
+                    <span>General Room 3</span>
+                    <span class="user-count">0</span>
+                </div>
+            </div>
+
+            <!-- Custom Voice Rooms -->
+            <div class="section">
+                <div class="section-header">
+                    <i class='bx bx-group'></i>
+                    <span>Voice Rooms</span>
+                    <button id="create-room-btn" class="icon-btn" title="Create Room">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                </div>
+                <div id="custom-rooms"></div>
+            </div>
+
+            <!-- Stages -->
+            <div class="section">
+                <div class="section-header">
+                    <i class='bx bx-broadcast'></i>
+                    <span>Stages</span>
+                </div>
+                <div id="stages-list">
+                    <div class="no-stages">No active stages</div>
+                </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="user-panel">
+                <div class="user-info">
+                    <div class="avatar" id="userAvatar">
+                        <span id="user-initial">U</span>
+                    </div>
+                    <div class="user-details">
+                        <span id="current-username">Username</span>
+                        <span class="status">Online</span>
+                    </div>
+                </div>
+                <div class="user-controls">
+                    <button class="icon-btn" id="mute-btn" title="Mute"><i class='bx bx-microphone'></i></button>
+                    <button class="icon-btn" id="deafen-btn" title="Deafen"><i class='bx bx-volume-full'></i></button>
+                    <button class="icon-btn" id="settings-btn" title="Admin Panel"><i class='bx bx-cog'></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="room-title">
+                    <i class='bx bx-hash'></i>
+                    <h2 id="current-room-name">Select a room</h2>
+                </div>
+                <button id="leave-room" class="leave-btn hidden">
+                    <i class='bx bx-log-out'></i>
+                    Leave Room
+                </button>
+            </div>
+
+            <div class="content-body">
+                <!-- Default State -->
+                <div id="default-view" class="default-view">
+                    <i class='bx bx-microphone-off'></i>
+                    <h2>No Voice Channel Selected</h2>
+                    <p>Select a voice channel from the sidebar to start talking</p>
+                </div>
+
+                <!-- Voice Room View -->
+                <div id="voice-room" class="voice-room-view hidden">
+                    <div class="participants-grid" id="participants"></div>
+                    
+                    <!-- Soundboard -->
+                    <div class="soundboard">
+                        <div class="soundboard-header">
+                            <i class='bx bx-music'></i>
+                            <span>Soundboard</span>
+                        </div>
+                        <div class="soundboard-grid">
+                            <button class="sound-btn" data-sound="airhorn"><i class='bx bx-bullhorn'></i> Airhorn</button>
+                            <button class="sound-btn" data-sound="applause"><i class='bx bx-happy'></i> Applause</button>
+                            <button class="sound-btn" data-sound="laugh"><i class='bx bx-laugh'></i> Laugh</button>
+                            <button class="sound-btn" data-sound="tada"><i class='bx bx-party'></i> Tada</button>
+                            <button class="sound-btn" data-sound="cricket"><i class='bx bx-bug'></i> Cricket</button>
+                            <button class="sound-btn" data-sound="drum"><i class='bx bx-music'></i> Drum Roll</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage View -->
+                <div id="stage-view" class="stage-view hidden">
+                    <div class="stage-content">
+                        <div class="stage-section">
+                            <h3><i class='bx bx-microphone'></i> Speakers</h3>
+                            <div class="stage-speakers" id="speakers"></div>
+                        </div>
+                        <div class="stage-section">
+                            <h3><i class='bx bx-user'></i> Audience</h3>
+                            <div class="stage-audience" id="audience"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="vc.js"></script>
+    <script src="/assets/scripts/index.js"></script>
+</html>
