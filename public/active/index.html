@@ -10,9 +10,9 @@
   <script>
     let count = parseInt(localStorage.getItem('alertCount')) || 0;
 
-    if (count < 5) {
+    if (count < 1) {
       alert(
-        "This will only appear 5 times. As a reminder, this is very buggy (bare clients, Scr@mj3t and U|tr@v|ol3t will bug out a lot), please be mindful and follow the steps so you dont get stuck. If you pressed do not show again, clear your cookies in chrome://settings/content/all?searchSubpage=" +
+        "As a reminder, this is very buggy (bare clients, Scr@mj3t and U|tr@v|ol3t will bug out a lot), please be mindful and follow the steps so you dont get stuck. If you pressed do not show again, clear your cookies in chrome://settings/content/all?searchSubpage=" +
         window.location.origin);
       localStorage.setItem('alertCount', count + 1);
     }
