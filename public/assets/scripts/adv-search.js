@@ -287,7 +287,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 alt="baldi's basics camping">Baldi's Basics Camping</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=basketball-stars&type=local'><img
                                                 height="175"
-                                                src="https://cdn.statically.io/GalacticNetwork/3kh0-assets/main/basketball-stars/basketball-stars.jpg"
+                                                src="/assets/images/game/basketball-stars.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
@@ -815,7 +815,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="roblox">Drunken Boxing 2</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=drive-mad&type=3kh0'><img height="175"
-                                                src="https://cdn.statically.io/GalacticNetwork/3kh0-assets/main/drive-mad/logo.jpg"
+                                                src="/assets/images/game/drive-mad.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
@@ -1660,7 +1660,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="Elastic Man">Madden NFL 24</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=MonkeyMart&type=3kh0'><img height="175"
-                                                src="https://cdn.statically.io/GalacticNetwork/3kh0-assets/main/MonkeyMart/bg_loading.png"
+                                                src="/assets/images/game/monkey-mart.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
@@ -1973,8 +1973,8 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="roblox">Roblox</span></a>
-                                <a class='link button' href='/active' data-tag="exclusive"><img
-                                                height="175" src="/assets/images/game/"
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/slqntdevss/quasar/refs/heads/main/public/assets/storage/webgl/dblx/index.html' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/rblx.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
