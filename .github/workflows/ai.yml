@@ -41,7 +41,7 @@ jobs:
 
       - name: Unzip artifact to /public/scram
         run: |
-          unzip -o ./temp_artifact/scramjet.zip -d ./public/scram
+          mv ./temp_artifact ./public/scram
 
       - name: Verify extraction
         run: |
