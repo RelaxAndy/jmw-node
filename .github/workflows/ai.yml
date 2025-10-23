@@ -16,9 +16,8 @@ jobs:
       - name: Find the latest successful workflow run
         id: latest_run
         run: |
-          REPO="${{ github.repository }}"
           echo "Finding latest successful run for $REPO..."
-          latest_run_id=$(gh run list --repo "$REPO" --status success --limit 1 --json databaseId --jq '.[0].databaseId')
+          latest_run_id=$(gh run list --repo "mercuryworkshop/scramjet" --status success --limit 1 --json databaseId --jq '.[0].databaseId')
           if [ -z "$latest_run_id" ]; then
             echo "❌ No workflow runs found."
             exit 1
