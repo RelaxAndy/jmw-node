@@ -1,0 +1,50 @@
+name: Download Latest Scramjet Artifact
+
+on:
+  workflow_dispatch: # allows manual trigger
+  schedule:
+    - cron: '0 * * * *' # runs every hour, optional — you can remove this if not needed
+
+jobs:
+  download-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Find the latest successful workflow run
+        id: latest_run
+        run: |
+          REPO="${{ github.repository }}"
+          echo "Finding latest successful run for $REPO..."
+          latest_run_id=$(gh run list --repo "$REPO" --limit 1 --json databaseId --jq '.[0].databaseId')
+          if [ -z "$latest_run_id" ]; then
+            echo "❌ No workflow runs found."
+            exit 1
+          fi
+          echo "✅ Found latest run ID: $latest_run_id"
+          echo "run_id=$latest_run_id" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download scramjet artifact
+        run: |
+          echo "Downloading artifact 'scramjet' from run ID: ${{ steps.latest_run.outputs.run_id }}"
+          gh run download ${{ steps.latest_run.outputs.run_id }} --name scramjet --repo ${{ github.repository }} --dir ./temp_artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare target directory
+        run: |
+          mkdir -p /public/scram
+          rm -rf /public/scram/*
+
+      - name: Unzip artifact to /public/scram
+        run: |
+          unzip -o ./temp_artifact/scramjet.zip -d /public/scram
+
+      - name: Verify extraction
+        run: |
+          echo "Contents of /public/scram:"
+          ls -al /public/scram
