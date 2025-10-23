@@ -30,42 +30,28 @@ jobs:
       - name: Find the latest successful workflow run
         id: latest_run
         run: |
-          echo "Finding latest successful run for mercuryworkshop/scramjet..."
           latest_run_id=$(gh run list --repo "mercuryworkshop/scramjet" --status success --limit 1 --json databaseId --jq '.[0].databaseId')
-          if [ -z "$latest_run_id" ]; then
-            echo "❌ No workflow runs found."
-            exit 1
-          fi
-          echo "✅ Found latest run ID: $latest_run_id"
-          echo "run_id=$latest_run_id" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download scramjet artifact
-        run: |
-          echo "Downloading artifact 'scramjet' from run ID: ${{ steps.latest_run.outputs.run_id }}"
           mkdir -p ./temp_artifact
-          gh run download ${{ steps.latest_run.outputs.run_id }} \
+          gh run download $latest_run_id \
             --name scramjet \
             --repo "mercuryworkshop/scramjet" \
             --dir ./temp_artifact
+
+          rm -rf ./public/scram
+          mv ./temp_artifact ./public/scram
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare target directory
-        run: |
-          rm -rf ./public/scram
-          mkdir -p ./public
-
-      - name: Move artifact to /public/scram
-        run: mv ./temp_artifact ./public/scram
-
-      - name: Verify extraction
-        run: |
-          echo "Contents of /public/scram:"
-          ls -al ./public/scram
-
+          
       - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./public/scram
+          git commit -m "Update Scramjet artifact from mercuryworkshop/scramjet" || echo "No changes to commit"
+
+      - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
