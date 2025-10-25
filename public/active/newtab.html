@@ -13,7 +13,7 @@
 
         * {
             background-color: var(--bgcolor);
-            background:var(--bgcolor);
+            background: var(--bgcolor);
             color: var(--txtcolor);
             font-family: 'Inter', sans-serif;
         }
@@ -24,12 +24,12 @@
         }
 
         #form input {
-            padding: 15px;
+            padding: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             font-size: 16px;
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
             background-color: rgba(255, 255, 255, 0.1);
             color: #fff;
             text-align: center;
@@ -80,7 +80,7 @@
             border-radius: 50%;
             position: relative;
             margin-top: 5px;
-            background:transparent
+            background: transparent
         }
 
         .shortcut-name {
@@ -264,12 +264,10 @@
 
         #takeadih,
         #chickendih {
-            background: rgba(255, 255, 255, 0.1);
+            background: none;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
             padding: 20px;
             width: 90%;
             max-width: 900px;
@@ -292,11 +290,9 @@
     <br>
     <div align="center">
         <main id="main">
-            <div id="takeadih">
+            <div id="chickendih">
                 <h1 class="text-slate-150" style="background:none;"><span style="background:none;"
                         id="local-time"></span></h1>
-            </div>
-            <div id="chickendih">
                 <form id="form" style="background:none;">
                     <input autofocus spellcheck="false" autocomplete="off" id="address" type="text" id="input" required
                         placeholder="Search with confidence..">
@@ -366,12 +362,31 @@
 </script>
 <script src="/assets/scripts/index.js"></script>
 <script>
-    const defaultPresets = [
-        { name: "Cloud Gaming", url: "https://xbox.com/en-us/play", icon: "/assets/images/preset/xbox.png" },
-        { name: "Geforce Now", url: "https://play.geforcenow.com", icon: "/assets/images/preset/geforcenow.jpeg" },
-        { name: "Twitch", url: "https://twitch.tv", icon: "/assets/images/app/twitch.png" },
-        { name: "Discord", url: "https://discord.com/login", icon: "/assets/images/preset/discord.png" },
-        { name: "+ Add", isAdd: true, icon: "plus.png" }
+    const defaultPresets = [{
+            name: "Cloud Gaming",
+            url: "https://xbox.com/en-us/play",
+            icon: "/assets/images/preset/xbox.png"
+        },
+        {
+            name: "Geforce Now",
+            url: "https://play.geforcenow.com",
+            icon: "/assets/images/preset/geforcenow.jpeg"
+        },
+        {
+            name: "Twitch",
+            url: "https://twitch.tv",
+            icon: "/assets/images/app/twitch.png"
+        },
+        {
+            name: "Discord",
+            url: "https://discord.com/login",
+            icon: "/assets/images/preset/discord.png"
+        },
+        {
+            name: "+ Add",
+            isAdd: true,
+            icon: "plus.png"
+        }
     ];
 
     function saveShortcuts() {
@@ -392,7 +407,12 @@
         customShortcuts = JSON.parse(localStorage.getItem("customShortcuts")) || [];
     }
 
-    function createShortcutEl({ name, url, icon, isAdd }, isCustom = false) {
+    function createShortcutEl({
+        name,
+        url,
+        icon,
+        isAdd
+    }, isCustom = false) {
         const el = document.createElement("div");
         el.className = "shortcut" + (isAdd ? " add-btn" : "");
         const iconUrl = icon || getFavicon(url);
@@ -461,7 +481,11 @@
         if (!name) return;
         const siteURL = prompt("Site URL (with https://):") || `https://duckduckgo.com/?q=${encodeURIComponent(name)}`;
         const icon = getFavicon(siteURL);
-        const shortcut = { name, url: siteURL, icon };
+        const shortcut = {
+            name,
+            url: siteURL,
+            icon
+        };
         customShortcuts.push(shortcut);
         saveShortcuts();
         render();
@@ -481,7 +505,8 @@
         const shortcut = customShortcuts.find(s => s.name === name);
         const newName = prompt("New shortcut name:", shortcut.name);
         if (!newName) return;
-        const newUrl = prompt("New URL (with https://):", shortcut.url) || `https://duckduckgo.com/?q=${encodeURIComponent(newName)}`;
+        const newUrl = prompt("New URL (with https://):", shortcut.url) ||
+            `https://duckduckgo.com/?q=${encodeURIComponent(newName)}`;
         shortcut.name = newName;
         shortcut.url = newUrl;
         shortcut.icon = getFavicon(newUrl);
@@ -489,7 +514,8 @@
         render();
     }
 
-    let presets = [], customShortcuts = [];
+    let presets = [],
+        customShortcuts = [];
     loadShortcuts();
     render();
 </script>
@@ -553,6 +579,9 @@
         document.body.appendChild(overlay);
     }
 </script>
-<script type='text/javascript' src='//pl27730558.revenuecpmgate.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'></script>
-<script type='text/javascript' src='//pl27730558.effectivegatecpm.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'></script>
+<script type='text/javascript' src='//pl27730558.revenuecpmgate.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'>
+</script>
+<script type='text/javascript' src='//pl27730558.effectivegatecpm.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'>
+</script>
+
 </html>
