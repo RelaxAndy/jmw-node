@@ -283,7 +283,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 height="175" src="/assets/images/game/baldicamping.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="baldi's basics camping">Baldi's Basics Camping</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=basketball-stars&type=local'><img
                                                 height="175"
@@ -470,13 +470,13 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 height="175" src="/assets/images/game/myballznbricks.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="SMC">Balls And Bricks</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=blade-ball&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/blade-ball.webp"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="SMC">Blade Ball</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://sz-games.github.io/Games6/burger-and-frights'><img
                                                 height="175" src="/assets/images/game/bnf.png"
@@ -514,7 +514,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="gs">Bouncemasters</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/bloodmoney/index.html' data-tag="exclusive"><img
+                                <a class='link button' href='/yalp/ela.html?book=bloodmoney&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/bloodmoney.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -874,7 +874,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="eaglercraft 1.8.8">All Versions Of Eaglercraft</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=eggy-car&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://webglmath.github.io/eggy-car/'><img height="175"
                                                 src="/assets/images/game/eggy-car.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1139,25 +1139,25 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:50px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
-                                                alt="roblox">Fears to fathomHome Alone</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=gba&type=local'><img height="175"
+                                                alt="roblox">Fears to fathom; Home Alone</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/MkGamesdev/MKGBA2.0/master/index.html'><img height="175"
                                                 src="/assets/images/game/gba.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="GBA">GameBoy Advanced</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=gba/js&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://endrift.github.io/gbajs/'><img height="175"
                                                 src="/assets/images/game/gba-js.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;"
                                                 alt="GBA.JS">GBA.JS</span></a>
-                                <a class='link button' href='/yalp/banana.html?book=geometrydash&type=local'><img
+                                <a class='link button' href='/yalp/ela.html?book=geodash-lite&type=local'><img
                                                 height="175" src="/assets/images/game/gd.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;"
-                                                alt="Geometry Dash">Geometry Dash</span></a>
+                                                alt="Geometry Dash">Geometry Dash; Lite</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=gd/meltdown&type=local'><img
                                                 height="175" src="/assets/images/game/meltdown.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -1381,7 +1381,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="GBA.JS">Hollow Knight</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/genizy/web-port/refs/heads/main/human-expenditure-program/index.html' data-tag="exclusive"><img
+                                <a class='link button' href='/yalp/ela.html?book=human-exp&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/hee.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -2183,7 +2183,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="Snowball.IO">Snowball.IO</span></a>
-                                <a class='link button' href='/active/index.html?autofill=https://webgltest-17af1.firebaseapp.com/' data-tag="exclusive"><img
+                                <a class='link button' href='/yalp/ela.html?book=smash-karts&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/smash-kart.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2223,13 +2223,13 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 src="/assets/images/game/super-mario-construct.webp"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="SMC">Super Mario Construct</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=smb-3&type=local'><img height="175"
                                                 src="/assets/images/game/smb-3.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="smb3">Super Mario Bros 3</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://kdata1.com/2022/12/super-dark-deception/?kbhgames' data-tag="exclusive"><img height="175"
                                                 src="/assets/images/game/sdd.jpeg"
@@ -2429,6 +2429,12 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="">Steal A Brainrot</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://raw.githack.com/JustJxrdanWasDefinetlyTaken/galaxyvers/refs/heads/main/others/assets/games/Steal%20Brainrot%20Online.html' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/sab.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span class="span"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
+                                                alt="">Steal A Brainrot [Online]</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=tag&type=local'><img height="175"
                                                 src="/assets/images/game/tag.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2584,7 +2590,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 height="175" src="/assets/images/game/traffic-run.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="tffc run">Traffic Run</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=territorialio&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/territorial.jpg"
@@ -2698,7 +2704,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 src="/assets/images/game/wbwwb.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;width:fit-content;white-space:wrap;;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:centerwhite-space:wrap;;"
                                                 alt="wbwwb">We Become What  We Behold</span></a>
                                 <a class='link button' href='/yalp/ela.html?book=whack-your/ex&type=local'><img
                                                 height="175" src="/assets/images/game/whack-your-x.jpeg"
@@ -2758,7 +2764,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 height="175" src="/assets/images/game/hardest2.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
-                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;width:fit-content;"
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="hcr">Worlds Hardest Game 2</span></a>
                                 <a class='link button'
                                         href='/yalp/ela.html?book=wounded-summer-baby-edition&type=3kh0'><img
