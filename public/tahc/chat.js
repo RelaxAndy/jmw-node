@@ -24,13 +24,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCPfZg4eawfwaXQ7DRo_YfujdfxSkcmrpc",
-  authDomain: "web-chat-1ba36.firebaseapp.com",
-  projectId: "web-chat-1ba36",
-  storageBucket: "web-chat-1ba36.firebasestorage.app",
-  messagingSenderId: "823978063179",
-  appId: "1:823978063179:web:8177a2dbed6fe4c870a4ce",
-  measurementId: "G-MSV33WM6NL"
+  apiKey: "AIzaSyCfMEJ_8PwI0i8P8Ljg2Omblg1oLHU54zI",
+  authDomain: "global-chat-f8023.firebaseapp.com",
+  projectId: "global-chat-f8023",
+  storageBucket: "global-chat-f8023.firebasestorage.app",
+  messagingSenderId: "835508490053",
+  appId: "1:835508490053:web:67c041d81b096ba0b0382c",
+  measurementId: "G-G5ZL4NG8VM"
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
