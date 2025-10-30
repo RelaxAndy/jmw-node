@@ -1,5 +1,6 @@
 > [!IMPORTANT]
 > Please consider giving this respritory a star to support us.
+> FAIR WARNING! Clearly stealing our code will result in DMCA takedown.
 # 
 <p align="center"><img src="https://github.com/JustJxrdanWasDefinetlyTaken/jmw-node/blob/main/public/assets/images/jmw.png?raw=true" height="200">
 </p>
