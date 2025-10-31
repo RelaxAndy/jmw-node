@@ -10,18 +10,18 @@ import {
     remove,
     onDisconnect,
     update,
-    off
+    off,
+    serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
+ 
 const firebaseConfig = {
-    apiKey: "AIzaSyC7jhfwo8pX2M0ux0Vtt0di2As9mUfH-7s",
-    authDomain: "voicechat-global.firebaseapp.com",
-    databaseURL: "https://voicechat-global-default-rtdb.firebaseio.com",
-    projectId: "voicechat-global",
-    storageBucket: "voicechat-global.firebasestorage.app",
-    messagingSenderId: "810575934201",
-    appId: "1:810575934201:web:7bfb46b12243f6d9d22828",
-    measurementId: "G-GSJWGXFEET"
+  apiKey: "AIzaSyCicTySOeFnwm2h9WC4-wdSuhOIH-DzmoA",
+  authDomain: "voicechat-global-838c1.firebaseapp.com",
+  projectId: "voicechat-global-838c1",
+  storageBucket: "voicechat-global-838c1.firebasestorage.app",
+  messagingSenderId: "609671588783",
+  appId: "1:609671588783:web:d928d4716976330e011d5a",
+  measurementId: "G-KNGTZQ4YTM"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -43,6 +43,11 @@ let pendingCandidates = {};
 let participantsListener = null;
 let signalsListener = null;
 let makingOffer = {};
+let lastSpeakTime = Date.now();
+let silenceCheckInterval = null;
+let roomCleanupInterval = null;
+let isTabVisible = true;
+let tabHiddenTime = null;
 
 const iceServers = {
     iceServers: [
@@ -51,6 +56,39 @@ const iceServers = {
         { urls: 'stun:stun2.l.google.com:19302' }
     ]
 };
+
+const SILENCE_TIMEOUT = 5 * 60 * 1000;
+const ROOM_CLEANUP_TIME = 12 * 60 * 60 * 1000;
+
+const OFFENSIVE_WORDS = [
+    'nigger', 'nigga', 'nig', 'faggot', 'fag', 'retard', 'retarded',
+    'cunt', 'bitch', 'whore', 'slut', 'rape', 'nazi', 'hitler',
+    'kike', 'spic', 'chink', 'gook', 'wetback', 'paki',
+    'tranny', 'dyke', 'fck', 'fuck', 'shit', 'ass', 'damn',
+    'penis', 'vagina', 'cock', 'dick', 'pussy', 'sex', 'porn',
+    'kill yourself', 'kys', 'suicide', 'die', 'death'
+];
+
+function containsOffensiveWords(text) {
+    const lowerText = text.toLowerCase();
+    
+    // Check for exact matches and variations
+    for (const word of OFFENSIVE_WORDS) {
+        // Check for the word with word boundaries
+        const regex = new RegExp(`\\b${word}\\b`, 'i');
+        if (regex.test(lowerText)) {
+            return true;
+        }
+        
+        // Check for the word without spaces or with special characters
+        const stripped = lowerText.replace(/[^a-z0-9]/g, '');
+        if (stripped.includes(word.replace(/[^a-z0-9]/g, ''))) {
+            return true;
+        }
+    }
+    
+    return false;
+}
 
 function getInitials(name) {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -68,11 +106,39 @@ function checkUsername() {
 
 function setUsername() {
     const input = document.getElementById('usernameInput').value.trim();
-    if (input) {
-        username = input;
-        localStorage.setItem('voiceChatUsername', username);
-        document.getElementById('usernameModal').classList.remove('show');
+    
+    if (!input) {
+        alert('Please enter a username!');
+        return;
     }
+    
+    if (input.length > 15) {
+        alert('Username must be 15 characters or less!');
+        return;
+    }
+    
+    // Check for offensive words
+    if (containsOffensiveWords(input)) {
+        alert('Username contains inappropriate content. Please choose a different name.');
+        return;
+    }
+    
+    // Check for email pattern
+    if (input.includes('@') || input.includes('.com') || input.includes('.net') || input.includes('.org')) {
+        alert('Username cannot be an email address!');
+        return;
+    }
+    
+    // Check for reserved names (case insensitive)
+    const reservedNames = ['owner', 'developer', 'admin', 'moderator', 'mod', 'staff', 'support', 'official', 'system', 'bot'];
+    if (reservedNames.includes(input.toLowerCase())) {
+        alert('This username is reserved and cannot be used!');
+        return;
+    }
+    
+    username = input;
+    localStorage.setItem('voiceChatUsername', username);
+    document.getElementById('usernameModal').classList.remove('show');
 }
 
 function initDefaults() {
@@ -84,14 +150,83 @@ function initDefaults() {
                 set(roomRef, {
                     name: name,
                     type: 'default',
-                    created: Date.now()
+                    created: Date.now(),
+                    lastActivity: Date.now()
                 });
             }
         }, { onlyOnce: true });
     });
 }
 
+// Start room cleanup checker
+function startRoomCleanup() {
+    if (roomCleanupInterval) return;
+    
+    roomCleanupInterval = setInterval(() => {
+        checkAndCleanupRooms();
+    }, 60 * 1000); // Check every minute
+}
+
+async function checkAndCleanupRooms() {
+    const now = Date.now();
+    
+    ['public', 'private'].forEach(type => {
+        const roomsRef = ref(db, `rooms/${type}`);
+        onValue(roomsRef, (snap) => {
+            if (snap.exists()) {
+                snap.forEach(async (child) => {
+                    const room = child.val();
+                    const roomId = child.key;
+                    
+                    const hasParticipants = room.participants && Object.keys(room.participants).length > 0;
+                    const lastActivity = room.lastActivity || room.created || 0;
+                    const timeSinceActivity = now - lastActivity;
+                    
+                    if (!hasParticipants && timeSinceActivity > ROOM_CLEANUP_TIME) {
+                        console.log(`Cleaning up inactive room: ${room.name}`);
+                        await remove(ref(db, `rooms/${type}/${roomId}`));
+                    }
+                });
+            }
+        }, { onlyOnce: true });
+    });
+}
+
+function startSilenceCheck() {
+    if (silenceCheckInterval) return;
+    
+    silenceCheckInterval = setInterval(() => {
+        // Don't check if tab is hidden
+        if (!isTabVisible) return;
+        
+        const timeSilent = Date.now() - lastSpeakTime;
+        
+        if (timeSilent > SILENCE_TIMEOUT && currentRoom) {
+            console.log('Auto-disconnecting due to 5 minutes of silence');
+            alert('Disconnected due to 5 minutes of inactivity');
+            leaveRoom();
+        }
+    }, 10000); // Check every 10 seconds
+}
+
+function stopSilenceCheck() {
+    if (silenceCheckInterval) {
+        clearInterval(silenceCheckInterval);
+        silenceCheckInterval = null;
+    }
+}
+
+function updateLastActivity() {
+    if (currentRoom && roomType) {
+        const roomRef = ref(db, `rooms/${roomType}/${currentRoom}`);
+        update(roomRef, { lastActivity: Date.now() }).catch(e => {
+            console.warn('Failed to update room activity:', e);
+        });
+    }
+}
+
 initDefaults();
+startRoomCleanup();
 
 function listenRooms() {
     onValue(ref(db, 'rooms/default'), (snap) => displayRooms(snap, 'defaultRooms', 'default'));
@@ -166,6 +301,13 @@ async function joinRoom(id, type, name, hasPassword) {
     currentRoom = id;
     roomType = type;
     myPeerId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    // Reset silence timer
+    lastSpeakTime = Date.now();
+    startSilenceCheck();
+    
+    // Update room activity
+    updateLastActivity();
     
     const roomTitle = document.getElementById('roomTitle');
     if (roomTitle) roomTitle.textContent = name;
@@ -365,6 +507,11 @@ function monitorAudio(peerId, analyser) {
         if (ring) {
             if (average > 30) {
                 ring.classList.add('speaking');
+                // Reset silence timer when anyone speaks (including self)
+                if (currentRoom) {
+                    lastSpeakTime = Date.now();
+                    updateLastActivity();
+                }
             } else {
                 ring.classList.remove('speaking');
             }
@@ -505,6 +652,8 @@ function closePeerConnection(peerId) {
 }
 
 async function leaveRoom() {
+    stopSilenceCheck();
+    
     if (participantsListener) {
         off(ref(db, `rooms/${roomType}/${currentRoom}/participants`));
     }
@@ -622,13 +771,20 @@ function createRoom() {
         alert('Room name must be 15 characters or less!');
         return;
     }
+    
+    // Check for offensive words in room name
+    if (containsOffensiveWords(name)) {
+        alert('Room name contains inappropriate content. Please choose a different name.');
+        return;
+    }
 
     const id = name.replace(/\s+/g, '_');
     const data = {
         name: name,
         type: roomType,
         creator: username,
-        created: Date.now()
+        created: Date.now(),
+        lastActivity: Date.now()
     };
 
     if (pass && roomType === 'private') data.password = pass;
@@ -646,9 +802,36 @@ window.createRoom = createRoom;
 
 const usernameInput = document.getElementById('usernameInput');
 if (usernameInput) {
+    // Set max length on the input field
+    usernameInput.maxLength = 15;
+    
     usernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') setUsername();
     });
+    
+    // Also validate on input to prevent pasting long text
+    usernameInput.addEventListener('input', (e) => {
+        if (e.target.value.length > 15) {
+            e.target.value = e.target.value.slice(0, 15);
+        }
+    });
 }
+
+// Handle tab visibility for silence detection
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        isTabVisible = false;
+        tabHiddenTime = Date.now();
+    } else {
+        isTabVisible = true;
+        // Adjust lastSpeakTime to account for time spent hidden
+        if (tabHiddenTime && currentRoom) {
+            const timeHidden = Date.now() - tabHiddenTime;
+            lastSpeakTime += timeHidden;
+        }
+        tabHiddenTime = null;
+    }
+});
+
 checkUsername();
 listenRooms();
