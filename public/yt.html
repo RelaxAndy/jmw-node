@@ -3,11 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <title>JRDNTube</title>
-<link rel="stylesheet" href="/assets/css/main.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="manifest" href="/manifest.json" />
-<link rel="icon" href="/assets/images/jmw.png" type="image/png" />
 <style>
+  :root {
+    --bgcolor: #1e1e2e;
+    --txtcolor: #cdd6f4;
+    --surface: #313244;
+    --surface-hover: #45475a;
+    --primary: #89b4fa;
+    --secondary: #f38ba8;
+    --border: #585b70;
+    --glow: rgba(137, 180, 250, 0.3);
+  }
+  
   body {
     font-family: "Inter", Arial, sans-serif;
     background: var(--bgcolor);
@@ -138,10 +146,33 @@
     margin: 5px 0;
     color: var(--txtcolor);
   }
+  .error {
+    text-align: center;
+    color: var(--secondary);
+    padding: 20px;
+  }
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--txtcolor);
+  }
+  .spinner {
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 </head>
 
-<body theme="classic">
+<body>
 <center>
   <input id="searchBar" type="text" placeholder="Search videos..." />
 </center>
@@ -157,96 +188,103 @@
 </div>
 
 <script>
-let nextPageToken = null,
-    prevPageToken = null,
-    lastQuery = "games";
+let currentVideos = [];
+let lastQuery = "games";
 
-const workerHosts = [
-  "https://sweet-sunset-2733.brawlstarrer6.workers.dev",
-  "https://ytcdn.calculra.store",
-  "https://ytcdn.tutoringservices.site",
-];
+const CORS_PROXY = "https://corsproxy.io/?";
 
-function pickWorker() {
-  return workerHosts[Math.floor(Math.random() * workerHosts.length)];
-}
-
-function apiUrl(path, params) {
-  const q = new URLSearchParams(params).toString();
-  return `${pickWorker()}/youtube?path=${path}&${q}`;
-}
-
-async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("API error");
-  return res.json();
-}
-
-async function fetchVideos(query, pageToken = "") {
+async function fetchVideos(query) {
   lastQuery = query;
+  const grid = document.getElementById("videoGrid");
+  
   try {
-    const data = await fetchJSON(apiUrl("search", {
-      part: "snippet",
-      q: query,
-      type: "video",
-      maxResults: 50,
-      pageToken,
-    }));
-    nextPageToken = data.nextPageToken || null;
-    prevPageToken = data.prevPageToken || null;
-
-    const ids = data.items.map(v => v.id.videoId).filter(Boolean).join(",");
-    if (!ids) {
-      document.getElementById("videoGrid").innerHTML = "<p>No videos found.</p>";
+    grid.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading videos...</p></div>';
+    
+    const url = `${CORS_PROXY}${encodeURIComponent(`https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`)}`;
+    const response = await fetch(url);
+    const html = await response.text();
+    
+    const scriptMatch = html.match(/var ytInitialData = ({.+?});/);
+    
+    if (!scriptMatch) {
+      throw new Error("Could not parse YouTube data");
+    }
+    
+    const data = JSON.parse(scriptMatch[1]);
+    const contents = data?.contents?.twoColumnSearchResultsRenderer?.primaryContents?.sectionListRenderer?.contents;
+    
+    const videos = [];
+    
+    if (contents) {
+      for (const section of contents) {
+        const items = section?.itemSectionRenderer?.contents;
+        if (items) {
+          for (const item of items) {
+            const videoRenderer = item?.videoRenderer;
+            if (videoRenderer && videoRenderer.videoId) {
+              videos.push({
+                videoId: videoRenderer.videoId,
+                title: videoRenderer.title?.runs?.[0]?.text || 'Untitled',
+                channel: videoRenderer.ownerText?.runs?.[0]?.text || 'Unknown',
+                views: videoRenderer.viewCountText?.simpleText || 
+                       videoRenderer.shortViewCountText?.simpleText || 'N/A',
+                thumbnail: videoRenderer.thumbnail?.thumbnails?.[0]?.url || 
+                          `https://img.youtube.com/vi/${videoRenderer.videoId}/mqdefault.jpg`
+              });
+              
+              if (videos.length >= 50) break;
+            }
+          }
+        }
+        if (videos.length >= 50) break;
+      }
+    }
+    
+    if (videos.length === 0) {
+      grid.innerHTML = "<p class='error'>No videos found. Try a different search term.</p>";
       return;
     }
-
-    const statsData = await fetchJSON(apiUrl("videos", { part: "statistics", id: ids }));
-    const statsMap = {};
-    statsData.items.forEach(stat => statsMap[stat.id] = stat.statistics);
-
-    displayVideos(data.items, statsMap);
-
-    document.getElementById("nextBtn").disabled = !nextPageToken;
-    document.getElementById("prevBtn").disabled = !prevPageToken;
+    
+    currentVideos = videos;
+    displayVideos(videos);
+    
+    document.getElementById("nextBtn").disabled = true;
+    document.getElementById("prevBtn").disabled = true;
 
   } catch (err) {
     console.error(err);
+    grid.innerHTML = "<p class='error'>Failed to load videos. Please try again.</p>";
   }
 }
 
-function displayVideos(videos, statsMap) {
+function displayVideos(videos) {
   const grid = document.getElementById("videoGrid");
   grid.innerHTML = "";
+  
   videos.forEach(video => {
-    const vid = video.id.videoId;
-    if (!vid) return;
-    const stats = statsMap[vid] || {};
-    const views = stats.viewCount ? Number(stats.viewCount).toLocaleString() : "N/A";
-
     const card = document.createElement("div");
     card.className = "videoCard";
     card.innerHTML = `
-      <img class="thumb" src="${video.snippet.thumbnails.medium.url}">
-      <div class="title">${video.snippet.title}</div>
-      <div class="channel">${video.snippet.channelTitle}</div>
-      <div class="stats">${views} views</div>
+      <img class="thumb" src="${video.thumbnail}" alt="${video.title}">
+      <div class="title">${video.title}</div>
+      <div class="channel">${video.channel}</div>
+      <div class="stats">${video.views}</div>
     `;
-    card.addEventListener("click", () => openPlayer(vid, video.snippet, stats));
+    card.addEventListener("click", () => openPlayer(video));
     grid.appendChild(card);
   });
 }
 
-async function openPlayer(videoId, snippet, stats) {
+function openPlayer(video) {
   document.body.style.overflow = "hidden";
   document.getElementById("playerModal").style.display = "block";
   document.getElementById("playerBox").innerHTML = `
-    <iframe src="https://www.youtube-nocookie.com/embed/${videoId}?playlist=${videoId}&autoplay=1&iv_load_policy=3&loop=1&start=" allowfullscreen></iframe>
+    <iframe src="https://www.youtube-nocookie.com/embed/${video.videoId}?playlist=${video.videoId}&autoplay=1&iv_load_policy=3&loop=1&start=" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   `;
   document.getElementById("videoInfo").innerHTML = `
-    <h2>${snippet.title}</h2>
-    <p>${snippet.channelTitle}</p>
-    <p>${(stats.viewCount || 0).toLocaleString()} views</p>
+    <h2>${video.title}</h2>
+    <p>${video.channel}</p>
+    <p>${video.views}</p>
   `;
 }
 
@@ -258,21 +296,19 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 });
 
 document.getElementById("searchBar").addEventListener("keypress", e => {
-  if (e.key === "Enter") fetchVideos(e.target.value);
+  if (e.key === "Enter") {
+    const query = e.target.value.trim();
+    if (query) fetchVideos(query);
+  }
 });
 
 document.getElementById("nextBtn").addEventListener("click", () => {
-  if (nextPageToken) fetchVideos(lastQuery, nextPageToken);
 });
 
 document.getElementById("prevBtn").addEventListener("click", () => {
-  if (prevPageToken) fetchVideos(lastQuery, prevPageToken);
 });
 
 fetchVideos(lastQuery);
 </script>
 </body>
-<script type='text/javascript' src='//pl27730558.revenuecpmgate.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'>
-</script>
-<script type='text/javascript' src='//pl27730558.effectivegatecpm.com/65/cd/69/65cd69e2fbaffb69bf390369618ab8aa.js'></script>
 </html>

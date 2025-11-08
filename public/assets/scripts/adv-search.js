@@ -922,7 +922,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;;"
                                                 alt="au">Edge Not Found</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=eaglercraft/menu&type=local'><img
+                                <a class='link button' href='/yalp/ela.html?book=eaglercraft/menu&type=local' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/splash.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -1092,7 +1092,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="friday night funkin">Friday Night Funkin [OLD]</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=fnf/week-8&type=local'><img
+                                <a class='link button' href='/active/index.html?autofill=https://uploads.ungrounded.net/alternate/1528000/1528775_alternate_113347_r119.zip/?NewgroundsAPI_PublisherID=1&NewgroundsAPI_SandboxID=668c534c39440&NewgroundsAPI_SessionID=&NewgroundsAPI_UserName=%26lt%3Bdeleted%26gt%3B&NewgroundsAPI_UserID=0&ng_username=%26lt%3Bdeleted%26gt%3B'><img
                                                 height="175" src="/assets/images/game/fnf.gif"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1158,7 +1158,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="soccer legends 2021">Football Legends 2021</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=fruit-ninja&type=local'><img
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbwzewrpMx9gWhhnciarDGlL-swUEfQwsX-eFwX_wCRpQbNis2rZKPXm1UOe0Dm-m6h2/exec'><img
                                                 height="175" src="/assets/images/game/fruit-ninja.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1224,7 +1224,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="hcr">Falling Ball</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=fps-io&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbxsOqAwH7n6JxN5hVJCCxwvQgs91YCVxGZrfD8rYRicLErr2gJ8zPPRHth8pfsb0C90uA/exec'><img height="175"
                                                 src="/assets/images/game/fps-io.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1616,13 +1616,13 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="krunker">Krunker</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=kick-the-buddy&type=local'><img
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbwcSQ993I--VsMD2cc0jZmjWRYrVBnPGtgmUqSN278FCPokZfAfvraJQ4rlH2oAs-xg/exec'><img
                                                 height="175" src="/assets/images/game/kick-the-buddy.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="ktb">Kick The Buddy</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=knife-hit&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbz5PQilBPCJ7pnclZJ_v9eZclchYyuxpEyP1pHy5kWSq9bimjnk4IvjTjVY2tvH2edF/exec'><img height="175"
                                                 src="/assets/images/game/knife-hit.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1682,7 +1682,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="ltf-idle">Learn 2 Fly Idle</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=light-it-up&type=local'><img
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbyaIhOuQaEC1kX5IUvc5YTYfMBj43VR6z2tNEURNVlwY2Df3Bnzg-OVgLsXNdgQYdMiuQ/exec'><img
                                                 height="175" src="/assets/images/game/light-it-up.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1707,7 +1707,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="">Lacey's Flash Games</span></a>
                                 <a class='link button'
-                                        href='/yalp/ela.html?book=madalin-cars-multiplayer&type=3kh0'><img height="175"
+                                        href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbzlI0f1-ecYPbzoBR3OvE5nBH-krlom4UKH28DjIm-f4FGM3nA5g__x1N-EGVph-M46YA/exec'><img height="175"
                                                 src="/assets/images/game/md.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -1864,7 +1864,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="Angry Birds">OvO 2</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=only-up&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbwMccc783yv5Ftx2nkZ6BpHDi66OYtby8TRsYzgDufHka0zzRHHcV19NgtnFJH0ltbEvQ/exec'><img height="175"
                                                 src="/assets/images/game/only-up.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2111,6 +2111,18 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="">24/7 Poker</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://penaltyshooters.gitlab.io/game/penalty-shooters/' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/ps.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
+                                                alt="roblox">Penalty Shootout</span></a>
+                                <a class='link button' href='/active/index.html?autofill=https://penaltyshooters.gitlab.io/new-game/' data-tag="exclusive"><img
+                                                height="175" src="/assets/images/game/ps2.png"
+                                                onerror="this.src='/assets/images/no-icon-found.png'" class="image"
+                                                width="175"><span
+                                                style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
+                                                alt="roblox">Penalty Shootout 2</span></a>
                                 <a class='link button' href='/active/index.html?autofill=https://g.vseigru.net/7/igra-kvantovaya-geometriya-dash/' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/qg.jpeg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
@@ -2129,7 +2141,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="hcr">Rabbit Samurai 2</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=ro-blox&type=local' data-tag="exclusive"><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://nowgg.fun' data-tag="exclusive"><img height="175"
                                                 src="/assets/images/game/rblx.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span
@@ -2291,7 +2303,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="Slope 2">Slope 2</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=slope-3&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbydowo_N3nPu9WFnHbaJK2bwL-LUxdw5SMG3SbvYs8-Qni7jSjeFEo_PNtDypz0gmGd/exec'><img height="175"
                                                 src="/assets/images/game/slope-3.png"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2393,7 +2405,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="SMC">Super Mario Construct</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=smb-3&type=local'><img height="175"
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbydowo_N3nPu9WFnHbaJK2bwL-LUxdw5SMG3SbvYs8-Qni7jSjeFEo_PNtDypz0gmGd/exec'><img height="175"
                                                 src="/assets/images/game/smb-3.jpg"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"
@@ -2483,7 +2495,7 @@ const htmlString = `            <a class='link button' target="_blank" href='htt
                                                 width="175"><span class="span"
                                                 style="padding:15px;margin:auto;display:block;width:170px;height:45px;line-height:25px;overflow:hidden;text-align:center;white-space:wrap;"
                                                 alt="hcr">Sushi Unroll</span></a>
-                                <a class='link button' href='/yalp/ela.html?book=strongman-simulator&type=local' data-tag="exclusive"><img
+                                <a class='link button' href='/active/index.html?autofill=https://script.google.com/macros/s/AKfycbxLkugSSEdQm0qJQ4PZWRce6p8pKpuPdLIFeivG0cMt-QmjEjedBCarzz_kd2tlvxzs/exec' data-tag="exclusive"><img
                                                 height="175" src="/assets/images/game/strongman.webp"
                                                 onerror="this.src='/assets/images/no-icon-found.png'" class="image"
                                                 width="175"><span class="span"

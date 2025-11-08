@@ -32,7 +32,8 @@
     <h1>Eaglercraft Launcher</h1>
     <select id="eagselect" style="width: 400px;">
       <option value="select" default>select</option>
-      <option value="regular">Regular [High Performance] [1.8.8 wasm]</option>
+      <option value="regular">Regular [Java] [High Performance] [1.21.4]</option>
+      <option value="188wasm">Eagler-craft 1.8.8 [High Performance] [wasm]</option>
       <option value="133">Eagler-craft 1.3.3</option>
       <option value="152">Eagler-craft 1.5.2</option>
       <option value="188javascript">Eagler-craft 1.8.8 [javascript]</option>
@@ -49,12 +50,13 @@
   function launch(v) {
     if (!v || v === "select") return alert("Select a version");
     let url;
-    if (v === "regular") url = "/yalp/src/eaglercraft/188/wasm/index.html";
+    if (v === "regular") url = "/yalp/src/eaglercraft/1214/index.html";
+    if (v === "188wasm") url = "/yalp/src/eaglercraft/188/wasm/index.html";
     if (v === "133") url = "/yalp/src/eaglercraft/133/index.html";
     if (v === "152") url = "/yalp/src/eaglercraft/152/index.html";
     if (v === "188javascript") url = "/yalp/src/eaglercraft/188/js/index.html";
     if (v === "189") url = "/yalp/src/eaglercraft/189/index.html";
-    if (v === "1122javascript") url = "/yalp/src/eaglercraft/1122/js/index.html";
+    if (v === "1122javascript") url = "/yalp/src/eaglercraft/1122/java-script/index.html";
     if (v === "1122wasm") url = "/yalp/src/eaglercraft/1122/wasm/index.html";
     if (v === "astraclient") url = "/yalp/src/eaglercraft/astraclient/index.html";
     if (v === "resentclient") url = "/yalp/src/eaglercraft/resentclient/index.html";

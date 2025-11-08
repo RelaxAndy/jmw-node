@@ -52,6 +52,8 @@ let unsubMsgs = null,
 let lastMessageTime = 0,
   messageHistory = [],
   mutedUntil = 0;
+let roomCache = {};
+let activeListeners = {};
 const COOLDOWN_MS = 3000,
   MUTE_DURATION_MS = 600000,
   SPAM_THRESHOLD = 5;
@@ -79,6 +81,7 @@ const modalTitle = document.getElementById("modalTitle");
 const modalBody = document.getElementById("modalBody");
 const modalCancel = document.getElementById("modalCancel");
 const modalSave = document.getElementById("modalSave");
+
 async function requestNotificationPermission() {
   if ('Notification' in window && Notification.permission === 'default') await Notification.requestPermission();
 }
@@ -191,16 +194,7 @@ function filterSwearing(text) {
   });
   return filtered;
 }
-async function filterSwearingAPI(text) {
-  try {
-    const response = await fetch(`https://www.purgomalum.com/service/json?text=${encodeURIComponent(text)}`);
-    const data = await response.json();
-    return data.result || text;
-  } catch (error) {
-    console.error("API filter error:", error);
-    return filterSwearing(text);
-  }
-}
+
 async function checkAdminStatus() {
   if (!me.uid) return false;
   try {
@@ -416,7 +410,8 @@ function roomPathForCurrent() {
   if (current.type === "group") return ["groups", current.id, "messages"];
   return ["rooms", "public", "messages"];
 }
-async function renderMessage(m) {
+
+function renderMessage(m) {
   const row = document.createElement("div");
   row.className = "bubble" + (m.uid === me.uid ? " me" : "");
   const av = document.createElement("div");
@@ -431,7 +426,7 @@ async function renderMessage(m) {
   const safeTag = sanitizeInput(m.tag || "0000", 10);
   nm.textContent = `${safeUsername(safeName, safeTag)} • ${timestamp}`;
   const tx = document.createElement("div");
-  const safeText = await filterSwearingAPI(sanitizeInput(m.text || "", 119));
+  const safeText = filterSwearing(sanitizeInput(m.text || "", 119));
   tx.textContent = safeText;
   content.appendChild(nm);
   content.appendChild(tx);
@@ -448,6 +443,7 @@ function setActiveRoomButton(id) {
   }
   if (id === "public") publicBtn.classList.add("active");
 }
+
 async function loadUserProfile() {
   if (!me.uid) return false;
   
@@ -456,16 +452,11 @@ async function loadUserProfile() {
     
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      
-      // Load saved username and tag
       me.name = userData.name;
       me.tag = userData.tag;
       me.avatar = avatarLetter(me.name);
-      
-      // Save to sessionStorage for this session
       sessionStorage.setItem("username", me.name);
       sessionStorage.setItem("usertag", me.tag);
-      
       console.log("Loaded existing profile:", me.name, me.tag);
       return true;
     }
@@ -477,24 +468,17 @@ async function loadUserProfile() {
   }
 }
 
-// Replace the existing onAuthStateChanged with this improved version
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
   
   me.uid = user.uid;
-  
-  // Check admin status first
   await checkAdminStatus();
   adminCheckComplete = true;
-  
-  // Try to load existing profile from Firebase
   const profileLoaded = await loadUserProfile();
   
-  // Only show username modal if no profile exists
   if (!profileLoaded && !me.name) {
     showUsernameModal("Set Username");
   } else {
-    // Profile exists, continue normally
     me.avatar = avatarLetter(me.name);
     await upsertUserProfile();
     updateAdminUI();
@@ -525,7 +509,6 @@ function showUsernameModal(title) {
     return container;
   }, async () => {
     const rawVal = document.getElementById("usernameInput").value;
-    
     const allowedPattern = /^[a-z0-9\s._-]+$/;
     
     if (!allowedPattern.test(rawVal.trim())) {
@@ -553,6 +536,7 @@ function showUsernameModal(title) {
   });
 }
 changeNameBtn.onclick = () => showUsernameModal("Change Username");
+
 async function upsertUserProfile() {
   if (!me.uid) return;
   try {
@@ -579,6 +563,127 @@ async function upsertUserProfile() {
       });
     } catch (e) {
       console.error("Status update error:", e);
+    }
+  });
+}
+
+function showLoadingScreen() {
+  if (roomCache[current.id]?.loaded) return;
+  
+  messagesEl.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;">
+      <div style="width:50px;height:50px;border:4px solid var(--surface-hover);border-top:4px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite;"></div>
+      <div style="color:var(--text-muted);font-size:0.9rem;">Loading...</div>
+    </div>
+  `;
+}
+
+function openRoom(kind, id, title) {
+  const safeKind = sanitizeInput(kind, 10);
+  const safeId = sanitizeInput(id, 50);
+  const safeTitle = sanitizeInput(title, 100);
+  
+  current = {
+    type: safeKind,
+    id: safeId,
+    title: safeTitle
+  };
+  
+  chatTitle.textContent = safeTitle;
+  const renameBtn = document.getElementById("renameGroupBtn");
+  if (renameBtn) renameBtn.style.display = safeKind === "group" ? "inline-block" : "none";
+  
+  const cacheKey = safeId;
+  if (roomCache[cacheKey]?.loaded && roomCache[cacheKey].fragment) {
+    messagesEl.innerHTML = "";
+    messagesEl.appendChild(roomCache[cacheKey].fragment.cloneNode(true));
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    
+    if (!activeListeners[cacheKey]) {
+      setupRoomListener(safeKind, safeId, cacheKey, false);
+    }
+  } else {
+    showLoadingScreen();
+    setupRoomListener(safeKind, safeId, cacheKey, true);
+  }
+  
+  setActiveRoomButton(safeId);
+}
+
+function setupRoomListener(kind, id, cacheKey, isInitialLoad) {
+  if (activeListeners[id]) {
+    activeListeners[id]();
+  }
+  
+  const [c1, c2, c3] = kind === "public" ? ["rooms", "public", "messages"] :
+                       kind === "dm" ? ["dms", id, "messages"] :
+                       ["groups", id, "messages"];
+  
+  const messageQuery = query(collection(db, c1, c2, c3), orderBy("timestamp"));
+  
+  const lastProcessedIndex = { value: -1 };
+  
+  activeListeners[id] = onSnapshot(messageQuery, (snap) => {
+    const isActiveRoom = current.id === id;
+    
+    if (isInitialLoad) {
+      const fragment = document.createDocumentFragment();
+      const messages = [];
+      
+      const batchSize = 100;
+      const docs = snap.docs;
+      
+      for (let i = 0; i < docs.length; i += batchSize) {
+        const batch = docs.slice(i, i + batchSize);
+        batch.forEach(docSnap => {
+          const el = renderMessage(docSnap.data());
+          fragment.appendChild(el);
+          messages.push(el.cloneNode(true));
+        });
+      }
+      
+      roomCache[cacheKey] = {
+        messages: messages,
+        loaded: true,
+        fragment: fragment.cloneNode(true)
+      };
+      
+      if (isActiveRoom) {
+        messagesEl.innerHTML = "";
+        messagesEl.appendChild(fragment);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+      
+      lastProcessedIndex.value = snap.docs.length - 1;
+      isInitialLoad = false;
+    } else {
+      for (const change of snap.docChanges()) {
+        if (change.type === "added" && change.newIndex > lastProcessedIndex.value) {
+          const m = change.doc.data();
+          const messageElement = renderMessage(m);
+          
+          if (roomCache[cacheKey]) {
+            roomCache[cacheKey].messages.push(messageElement.cloneNode(true));
+            if (roomCache[cacheKey].fragment) {
+              roomCache[cacheKey].fragment.appendChild(messageElement.cloneNode(true));
+            }
+          }
+          
+          if (isActiveRoom) {
+            messagesEl.appendChild(messageElement);
+            showMessageNotification(m, current.type);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+          }
+          
+          lastProcessedIndex.value = change.newIndex;
+        }
+      }
+    }
+  }, (error) => {
+    console.error("Messages listener error:", error);
+    if (isActiveRoom) {
+      messagesEl.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-muted);">Failed to load messages</div>`;
+      showStatusMessage("Failed to load messages", "error");
     }
   });
 }
@@ -709,88 +814,12 @@ function startListeners() {
     groupUnsub();
   };
   openRoom(current.type, current.id, current.title);
-}
-function showLoadingScreen() {
-  messagesEl.innerHTML = `
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;">
-      <div style="width:50px;height:50px;border:4px solid var(--surface-hover);border-top:4px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite;"></div>
-      <div style="color:var(--text-muted);font-size:0.9rem;">Loading messages [this may take a while]...</div>
-    </div>
-  `;
-}
-
-function openRoom(kind, id, title) {
-  const safeKind = sanitizeInput(kind, 10);
-  const safeId = sanitizeInput(id, 50);
-  const safeTitle = sanitizeInput(title, 100);
   
-  // Unsubscribe from old room first
-  if (unsubMsgs) unsubMsgs();
-  
-  // Show loading screen
-  showLoadingScreen();
-  
-  // Update current room - do this AFTER unsubscribing but BEFORE setting up new listener
-  current = {
-    type: safeKind,
-    id: safeId,
-    title: safeTitle
-  };
-  
-  chatTitle.textContent = safeTitle;
-  const renameBtn = document.getElementById("renameGroupBtn");
-  if (renameBtn) renameBtn.style.display = safeKind === "group" ? "inline-block" : "none";
-  
-  const [c1, c2, c3] = roomPathForCurrent();
-  const messageQuery = query(collection(db, c1, c2, c3), orderBy("timestamp"));
-  
-  // Track which room this listener belongs to
-  const listenerRoomId = safeId;
-  let isFirstLoad = true;
-  
-  unsubMsgs = onSnapshot(messageQuery, async (snap) => {
-    // Ignore updates if we've switched to a different room
-    if (current.id !== listenerRoomId) return;
-    
-    if (isFirstLoad) {
-      // Keep loading screen visible while processing
-      
-      // Render messages in batches for better performance
-      const batchSize = 20;
-      const docs = snap.docs;
-      const fragment = document.createDocumentFragment();
-      
-      for (let i = 0; i < docs.length; i += batchSize) {
-        const batch = docs.slice(i, i + batchSize);
-        const batchMessages = await Promise.all(
-          batch.map(docSnap => renderMessage(docSnap.data()))
-        );
-        batchMessages.forEach(el => fragment.appendChild(el));
-      }
-      
-      // Clear loading screen and show messages
-      messagesEl.innerHTML = "";
-      messagesEl.appendChild(fragment);
-      isFirstLoad = false;
-    } else {
-      for (const change of snap.docChanges()) {
-        if (change.type === "added") {
-          const m = change.doc.data();
-          const messageElement = await renderMessage(m);
-          messagesEl.appendChild(messageElement);
-          showMessageNotification(m, current.type);
-        }
-      }
-    }
-    
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }, (error) => {
-    console.error("Messages listener error:", error);
-    messagesEl.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text-muted);">Failed to load messages</div>`;
-    showStatusMessage("Failed to load messages", "error");
-  });
-  
-  setActiveRoomButton(safeId);
+  if (current.id !== "public") {
+    setTimeout(() => {
+      setupRoomListener("public", "public", "public", true);
+    }, 500);
+  }
 }
 
 async function sendMessage() {
@@ -861,6 +890,7 @@ messageInput.addEventListener("keydown", e => {
 });
 publicBtn.onclick = () => openRoom("public", "public", "General Chat");
 toggleUsersBtn.onclick = () => usersPanel.classList.toggle("open");
+
 startDmBtn.onclick = async () => {
   try {
     const usersSnap = await getDocs(query(collection(db, "users"), orderBy("name")));
@@ -910,6 +940,7 @@ startDmBtn.onclick = async () => {
     console.error("DM load error:", error);
   }
 };
+
 async function createOrOpenDM(otherUid, otherName, otherTag) {
   if (otherUid === me.uid) return;
   try {
@@ -940,6 +971,7 @@ async function createOrOpenDM(otherUid, otherName, otherTag) {
     console.error("DM create error:", error);
   }
 }
+
 createGroupBtn.onclick = async () => {
   try {
     const usersSnap = await getDocs(query(collection(db, "users"), orderBy("name")));
@@ -1005,6 +1037,7 @@ createGroupBtn.onclick = async () => {
     console.error("Group create error:", error);
   }
 };
+
 renameGroupBtn.onclick = async () => {
   if (current.type !== "group") return;
   try {
@@ -1040,6 +1073,7 @@ renameGroupBtn.onclick = async () => {
     console.error("Rename error:", error);
   }
 };
+
 adminPanelBtn.onclick = async () => {
   if (!isAdmin) {
     showStatusMessage("Access denied", "error");
@@ -1209,6 +1243,7 @@ adminPanelBtn.onclick = async () => {
     showStatusMessage("Failed to load admin panel", "error");
   }
 };
+
 adminKeyBtn.onclick = async () => {
   createSafeModal("Enter Admin Key", () => {
     const container = document.createElement('div');
@@ -1233,26 +1268,14 @@ adminKeyBtn.onclick = async () => {
       const keysSnap = await getDocs(collection(db, "adminKeys"));
       let validKey = false;
       let isOwnerKey = false;
-      let debugInfo = `Found ${keysSnap.size} key(s) in database`;
 
       keysSnap.forEach(doc => {
         const keyData = doc.data();
-        const keysMatch = keyData.key === enteredKey;
-        const activeCheck = keyData.active === true;
-
-        if (keysMatch) {
-          debugInfo += `\nKey matched! Active field type: ${typeof keyData.active}, value: ${keyData.active}`;
-        }
-
-        if (keysMatch && activeCheck) {
+        if (keyData.key === enteredKey && keyData.active === true) {
           validKey = true;
           if (keyData.role === "owner") isOwnerKey = true;
         }
       });
-
-      if (!validKey) {
-        console.log(debugInfo);
-      }
 
       if (validKey) {
         await setDoc(doc(db, "admins", me.uid), {
@@ -1265,20 +1288,10 @@ adminKeyBtn.onclick = async () => {
         me.isOwner = isOwnerKey;
 
         if (isOwnerKey) {
-          me.name = "♛ JRDN 〈Owner〉";
+          me.name = "♛ JRDN";
+          me.tag = "3164";
           sessionStorage.setItem("username", me.name);
-
-          const nameEl = document.querySelector(".user-name");
-          if (nameEl) {
-            nameEl.textContent = '';
-
-            const badge = document.createElement('span');
-            badge.id = 'owner-badge';
-            badge.textContent = '♛ JRDN';
-            nameEl.appendChild(badge);
-
-            nameEl.appendChild(document.createTextNode(' [Owner] #6741 (you)'));
-          }
+          sessionStorage.setItem("usertag", me.tag);
         }
 
         await upsertUserProfile();
@@ -1294,7 +1307,8 @@ adminKeyBtn.onclick = async () => {
     }
   });
 };
+
 const style = document.createElement('style');
-style.textContent = `@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(100%);opacity:0}}`;
+style.textContent = `@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(100%);opacity:0}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}`;
 document.head.appendChild(style);
 if (me.name) me.avatar = avatarLetter(me.name);

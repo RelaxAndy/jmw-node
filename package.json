@@ -14,6 +14,7 @@
   "dependencies": {
     "@mercuryworkshop/bare-mux": "^2.1.7",
     "@mercuryworkshop/epoxy-transport": "^2.1.28",
+    "@mercuryworkshop/wisp-js": "github:mercuryworkshop/wisp-js",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
